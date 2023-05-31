@@ -42,7 +42,7 @@ const Body = () => {
         )
     })
   return (
-    <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+    <div className="h-2/3 bg-gray-50 pt-10 ">
         <div className="w-1/3 relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
             <div className="mx-auto max-w-md text-lg ">
                 <input 
@@ -51,8 +51,9 @@ const Body = () => {
                     className=' w-4/5 border-2 border-gray-400 bg-white py-[2px] px-4 mr-1 rounded-md ' 
                     value={newTodoName} 
                     onChange={(e)=>setNewTodoName(e.target.value)}
+                    data-testid='input-bar'
                 />
-                <button className='m-2 py-[3px] px-4 bg-slate-500 text-slate-300 rounded-md shadow-md hover:scale-110  ' 
+                <button data-testid='add-todo-btn' className='m-2 py-[3px] px-4 bg-slate-500 text-slate-300 rounded-md shadow-md hover:scale-110  ' 
                     onClick={()=>{
                         let todoObj = {
                             index: todoList.length,
@@ -65,13 +66,13 @@ const Body = () => {
                 >Add</button>
             </div>
         </div>
-        <div className=" w-1/3 relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
+        <div className=" w-1/3 relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10 mt-2 ">
             <div className="mx-auto max-w-md text-lg ">
-                <ul className='mb-2' >
+                <ul data-testid='todo-list-array' className='mb-2' >
                     {displayList}
                 </ul>
                 <div>
-                    <span className='italic text-gray-800 font-bold ' >Todos left : {todoCount} </span>
+                    <span data-testid='todo-count'  className='italic text-gray-800 font-bold ' >{ todoCount === 0 ? `Woohoo! You don't have any pending tasks` : todoCount === 1 ? '1 task left' : `${todoCount} tasks left`}</span>
                 </div>
 
             </div>
