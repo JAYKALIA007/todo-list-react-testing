@@ -30,13 +30,11 @@ describe('tests to check number of tasks left',()=>{
 })
 
 describe('tests to check todo list array',()=>{
-    test('check if initial todolist array is empty',()=>{
 
+    test('check if initial todolist array is empty',()=>{
         render(<Body/>)
-    
-        const todoListArray = screen.getByTestId('todo-list-array')
-        // console.log(todoListArray.innerHTML.length)
-        expect(todoListArray.innerHTML.length).toBe(0)
+        const todoListArray = screen.queryAllByTestId('todo-list-array')
+        expect(todoListArray.length).toBe(0)
     })
     
     test('check if add todo event is actually reflecting in todo list',()=>{
@@ -51,8 +49,95 @@ describe('tests to check todo list array',()=>{
         fireEvent.click(addTodoBtn)
     
         // check if the added todo actually reflects on the list
-        const todoListArray = screen.getByTestId('todo-list-array')
-        // expect(todoListArray.innerHTML.split('</li> ').length).toBe(1)
-        expect(todoListArray).toContainHTML('li')
+        const todoListArray = screen.getAllByTestId('todo-list-array')
+        expect(todoListArray.length).toBe(1)
+    })
+
+    test('add 3 todos and check if all 3 are reflected in todo list',()=>{
+        const todosArray = ['Take a walk', 'Go to gym', 'Attend university classes']
+        render(<Body />)
+
+        for(let todo of todosArray){ 
+            const inputBar = screen.getByTestId('input-bar')
+            const addTodoBtn = screen.getByTestId('add-todo-btn')
+            fireEvent.change(inputBar , {target:{value: todo}})
+            fireEvent.click(addTodoBtn)
+        }
+
+        const todoListArray = screen.getAllByTestId('todo-list-array')
+        expect(todoListArray.length).toBe(todosArray.length)
+        
+
     })
 })
+
+describe('tests to check whether the input field is working properly',()=>{
+    test('input field should render the placeholder text on initial render',()=>{
+        render(<Body />)
+        const inputBar = screen.getByPlaceholderText('eg - take a walk');
+        expect(inputBar).toBeInTheDocument()
+    })
+
+    test('input field should render the entered text while typing', () =>{
+        const todo = 'Take a bath'
+        render(<Body />)
+        const inputBar = screen.getByPlaceholderText('eg - take a walk')
+        fireEvent.change(inputBar, {target : { value :  todo}} )
+        expect(inputBar.value).toBe(todo)
+    })
+
+    test('input field should render the placeholder text after the Add butoon is pressed', ()=>{
+        render(<Body />)
+        const inputBar = screen.getByPlaceholderText('eg - take a walk')
+        const addTodoBtn = screen.getByTestId('add-todo-btn')
+        fireEvent.change(inputBar , {target:{value:'Take a bath'}})
+        fireEvent.click(addTodoBtn)
+        expect(inputBar.value).toBe('')
+    })
+})
+
+describe('check styles of todo list items',()=>{
+
+    test('default style of todo to be not checked',()=>{
+        render(<Body />)
+
+        const inputBar = screen.getByTestId('input-bar')
+        const addTodoBtn = screen.getByTestId('add-todo-btn')
+        fireEvent.change(inputBar, {target:{value:'go for a walk'}})
+        fireEvent.click(addTodoBtn)
+
+        const todoListItem = screen.getByText('go for a walk')
+        expect(todoListItem).toHaveClass('text-gray-800')
+    })
+
+    test('style of todo changes to be checked when we click on todo',()=>{
+        render(<Body />)
+
+        const inputBar = screen.getByTestId('input-bar')
+        const addTodoBtn = screen.getByTestId('add-todo-btn')
+        fireEvent.change(inputBar, {target:{value:'go for a walk'}})
+        fireEvent.click(addTodoBtn)
+
+        const todoListItem = screen.getByText('go for a walk')
+        fireEvent.click(todoListItem)
+        expect(todoListItem).toHaveClass('text-gray-300 cursor-pointer ')
+    })
+})
+
+/**
+ * Tests 
+ * 
+ * 1. On initial render, check if initial todo footer shows 0 tasks pending
+ * 2. On initial render, check if initial todolist array is empty
+ * 3. On initial render, check if input field is displayed
+ * 4. On initial render, check if header title and description is displayed
+ * 
+ * 5. On change input, it reflects in the input field
+ * 6. On click Add button, the input field value gets added to todo list
+ * 7. On click Add button, the input field value becomes empty
+ * 8. Check the above actions for 3 todos
+ * 
+ * 9. Default todo list item should not be checked
+ * 10. On click an item from todo list its style changes and it appears as dashed
+ * 
+ */

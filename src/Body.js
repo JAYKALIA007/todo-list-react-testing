@@ -34,7 +34,7 @@ const Body = () => {
 
     const displayList = todoList.map(todo=>{
         return(
-            <li className={(todo.hide ? ' line-through	text-gray-300 ' : ' text-gray-800 ') + 'cursor-pointer italic  mx-2 my-4  '} key = {todo.index} 
+            <li data-testid='todo-list-array' className={(todo.hide ? ' line-through	text-gray-300 ' : ' text-gray-800 ') + 'cursor-pointer italic  mx-2 my-4  '} key = {todo.index} 
                 onClick={()=>{toggleTodoState(todo)}}>
                    {todo.todoName}
                    <hr/>
@@ -68,9 +68,7 @@ const Body = () => {
         </div>
         <div className=" w-1/3 relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10 mt-2 ">
             <div className="mx-auto max-w-md text-lg ">
-                <ul data-testid='todo-list-array' className='mb-2' >
-                    {displayList}
-                </ul>
+                <ul className='mb-2' >{displayList}</ul>
                 <div>
                     <span data-testid='todo-count'  className='italic text-gray-800 font-bold ' >{ todoCount === 0 ? `Woohoo! You don't have any pending tasks` : todoCount === 1 ? '1 task left' : `${todoCount} tasks left`}</span>
                 </div>
