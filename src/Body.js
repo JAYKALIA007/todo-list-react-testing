@@ -5,7 +5,7 @@ const Body = () => {
     const [ newTodoName , setNewTodoName ] = useState('')
     let todoCount = 0
 
-    useEffect(()=>{},[todoList , todoCount])
+    useEffect(()=>{},[todoList])
 
     //early return when todos are not loaded(when we are fetching data)
     if(!todoList) return null
