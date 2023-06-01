@@ -7,7 +7,7 @@ const Header = ({title , description}) => {
             <div data-testid='header-title' className='text-8xl font-semibold' >
                 {title}
             </div>
-            <div data-testid='header-desc' className=' text-lg font-thin ' >
+            <div data-testid='header-desc' className=' text-lg font-thin text-gray-500 ' >
                 {description}
             </div>
         </div>
