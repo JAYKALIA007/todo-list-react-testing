@@ -123,21 +123,3 @@ describe('check styles of todo list items',()=>{
         expect(todoListItem).toHaveClass('text-gray-300 cursor-pointer ')
     })
 })
-
-/**
- * Tests 
- * 
- * 1. On initial render, check if initial todo footer shows 0 tasks pending
- * 2. On initial render, check if initial todolist array is empty
- * 3. On initial render, check if input field is displayed
- * 4. On initial render, check if header title and description is displayed
- * 
- * 5. On change input, it reflects in the input field
- * 6. On click Add button, the input field value gets added to todo list
- * 7. On click Add button, the input field value becomes empty
- * 8. Check the above actions for 3 todos
- * 
- * 9. Default todo list item should not be checked
- * 10. On click an item from todo list its style changes and it appears as dashed
- * 
- */
