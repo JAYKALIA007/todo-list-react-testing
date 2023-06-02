@@ -53,7 +53,7 @@ const Body = () => {
                     onChange={(e)=>setNewTodoName(e.target.value)}
                     data-testid='input-bar'
                 />
-                <button data-testid='add-todo-btn' className='m-2 py-[3px] px-4 bg-slate-500 text-slate-300 rounded-md shadow-md hover:scale-110  ' 
+                <button disabled={newTodoName === ''} data-testid='add-todo-btn' className='m-2 py-[3px] px-4 bg-slate-500 text-slate-300 rounded-md shadow-md hover:scale-110  ' 
                     onClick={()=>{
                         let todoObj = {
                             index: todoList.length,
